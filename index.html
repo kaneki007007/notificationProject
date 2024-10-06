@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User's Information Notification Sender</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        text-align: center;
+        padding: 50px;
+      }
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.2em;
+        margin-top: 20px;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Desktop Notification Sender</h1>
+    <form action="">
+      <label for="fName">First name : </label
+      ><input type="text" name="" id="fName" /><br />
+      <label for="lName">Last name : </label
+      ><input type="text" name="" id="lName" /><br />
+      <label for="age">Age : </label
+      ><input type="number" name="" id="age" /><br />
+      <label for="phone">Phone number : </label
+      ><input type="tel" name="" id="phone" /><br />
+      <label for="ema">Email : </label
+      ><input type="email" name="" id="ema" /><br />
+      <input type="button" value="Send notification" id="submt" />
+    </form>
+
+    <br />
+
+    <p id="result"></p>
+
+    <script>
+      // Check if the browser supports notifications
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+
+      document.getElementById("submt").addEventListener("click", function () {
+        const message =
+          "Your name is : " +
+          document.getElementById("fName").value +
+          " " +
+          document.getElementById("lName").value +
+          "\n" +
+          "Your email : " +
+          document.getElementById("ema").value +
+          "\n" +
+          "Your age : " +
+          String(document.getElementById("age").value) +
+          "\n" +
+          "Your phone number : " +
+          document.getElementById("phone").value;
+
+        // Create a notification
+        if (Notification.permission === "granted") {
+          new Notification(
+            "Greetings " +
+              document.getElementById("fName").value +
+              " " +
+              document.getElementById("lName").value,
+            {
+              body: message,
+            }
+          );
+          document.getElementById("result").innerText =
+            "Notification sent! (it could take some time but it would eventualy get to you!)";
+        } else {
+          document.getElementById("result").innerText =
+            "Permission denied for notifications.";
+        }
+      });
+    </script>
+  </body>
+</html>
